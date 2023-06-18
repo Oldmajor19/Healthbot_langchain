@@ -1,0 +1,4 @@
+# created by virtualenv automatically
+bot/
+apikey.py
+__pycache__
