@@ -1,10 +1,16 @@
 from flask import Flask, render_template, request, session, redirect, url_for, jsonify
 import os
+from dotenv import load_dotenv
 
 from chatbot import setup_chain
 
+
+load_dotenv()
+
+
 app = Flask(__name__)
-# app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+
+app.secret_key = os.getenv('secret_key')
 
 chain = None
 
