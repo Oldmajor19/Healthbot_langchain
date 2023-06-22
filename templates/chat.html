@@ -11,6 +11,9 @@
         </div>
       </div>
 
+      <!-- Thinking Indicator -->
+      <span id="thinking" style="display: none;">Thinking</span>
+
       <!-- Input Box -->
       <div class="input-group mt-3">
         <input
@@ -37,6 +40,19 @@
     function sendMessage() {
       var message = $("#chat-input").val();
 
+      // Show the thinking indicator and start adding dots
+      $("#thinking").show();
+      var dotCount = 0;
+      var thinkingDots = setInterval(function() {
+        dotCount += 1;
+        if (dotCount <= 5) {
+          $("#thinking").append(".");
+        } else {
+          $("#thinking").text("Thinking");
+          dotCount = 0;
+        }
+      }, 500);  // append a dot every 500 milliseconds
+
       // Send the chat message to the server
       $.post("/chat", { message: message }, function (data) {
         // Add the user's message to the chat box
@@ -55,6 +71,10 @@
 
         // Clear the chat input box
         $("#chat-input").val("");
+
+        // Clear interval and hide the thinking indicator
+        clearInterval(thinkingDots);
+        $("#thinking").hide().text("Thinking");
       });
     }
 
